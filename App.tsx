@@ -1,20 +1,43 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from './src/screens/Home';
+import 'react-native-gesture-handler';
+import TaskDetailScreen from './src/screens/TaskDetail';
+import { RootStackParamList } from './types'; 
 
-export default function App() {
+const Stack = createStackNavigator<RootStackParamList>();
+
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator 
+        initialRouteName="Home"
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#E0DCE4', 
+            height: 130, 
+          },
+          headerTintColor: '#2D6C4A', 
+          headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 20, 
+          },
+        }}
+      >
+        <Stack.Screen 
+          name="Home" 
+          component={HomeScreen} 
+          options={{ title: '' }} 
+        />
+        <Stack.Screen 
+          name="Detalhes" 
+          component={TaskDetailScreen} 
+          options={{ title: 'Detalhes' }} 
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
